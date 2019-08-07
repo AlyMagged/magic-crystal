@@ -1,0 +1,69 @@
+
+body {
+  background-color: #0b0947;
+  font-family: Arial, sans-serif;
+}
+
+p {
+  text-align: center;
+  color: white;
+  font :bold;
+  font-size: 50px;
+
+}
+
+.button1{
+	height: 100px;
+	width: 185px;
+	background-color:  #404abf ;
+	color: white;
+	border: none;
+}
+.button2{
+	height: 100px;
+	width: 187px;
+	background-color: #da74bf;
+	color: white;
+	border: none;
+	
+
+}
+.button3{
+	height: 100px;
+	width: 187px;
+	background-color: #5fcd91;
+	color: white;
+	border: none;
+}
+.button4{
+	height: 100px;
+	width: 185px;
+	background-color: #895fcd;
+	color: white;
+	border: none;
+}
+.button5{
+	height: 100px;
+	width: 187px;
+	background-color: #f407d0;
+	color: white;
+	border: none;
+}
+.button6{
+	height: 100px;
+	width: 187px;
+	background-color: #404abf;
+	color: white;
+	border: none;
+
+}
+.button7{
+	height: 100px;
+	width: 187px;
+	background-color: #83814d;
+	color: white;
+	border: none;
+
+}
+
+
