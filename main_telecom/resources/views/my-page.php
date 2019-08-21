@@ -2,183 +2,364 @@
 
 <?php
 $connect = mysqli_connect("localhost", "root", "", "vtiger");
-$query = "SELECT `vtiger_products`.`productid` as productid FROM `vtiger_products`";
-$result = mysqli_query($connect, $query);
 
-
+$query5 = "SELECT `vtiger_products`.`productname` as ProductName,`vtiger_products`.`qtyinstock` as quantity, COUNT(`vtiger_troubletickets`.`ticketid`) as NumberOfTroubles FROM `vtiger_products` LEFT OUTER JOIN `vtiger_troubletickets` ON `vtiger_products`.`productid`=`vtiger_troubletickets`.`product_id` group by `vtiger_products`.`productname` limit 10";
+$result5 = mysqli_query($connect, $query5);
 ?>
+
 <html>
 <head>
-	<meta charset = "utf-8">
-	<link rel="stylesheet" href="last.css">
+	<style>
+	h1{
+		text-align: center;
+		font-size: 60px;
+	}
+	.bubble
+{
+    text-align: center;
+    display: flex;
+    width: 1000px;
+    height: 1000px;
+    margin-top: 100px;
+    margin-left: 400px;
+    color : black;
+
+}
+
+body {
+	height: 100%;
+  background-color: #fff;
+	background-image: url("https://media-public.canva.com/MABf-33gEgo/1/screen_2x.jpg");
+	height: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+h2{
+	text-align: center;
+	color: white;
+}
+ul {
+  margin: 20px auto;
+  text-align: center;
+  width: 80%;
+  height: 100%;
+  display: block;
+  color: #333;
+  position: relative;
+}
+ul li {
+  width: 120px;
+  height: 120px;
+  border: none;
+  overflow: hidden;
+  position: relative;
+	text-align: center;
+  float: left;
+   background-image: linear-gradient(to right,#06d4d4,#FFFDE4);
+  margin-left: 5%;
+  -webkit-box-shadow: 0px 3px 6px black;
+  -moz-box-shadow: 0px 3px 6px black;
+  box-shadow: 0px 3px 6px black;
+  -webkit-border-radius: 90px;
+  -moz-border-radius: 90px;
+  border-radius: 100px;
+  -webkit-transition: all 400ms linear;
+  -moz-transition: all 400ms linear;
+  -o-transition: all 400ms linear;
+  -ms-transition: all 400ms linear;
+  transition: all 400ms linear;
+
+}
+ul li:hover {
+  border-color: #f6f6f6;
+  z-index: 999;
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -o-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+}
+ul li:hover h3 {
+  color: #2d2d2d;
+  -webkit-animation: moveFromBottom 250ms ease;
+  -moz-animation: moveFromBottom 250ms ease;
+  -ms-animation: moveFromBottom 250ms ease;
+}
+ul li a {
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  display: block;
+	margin-top: 35%;
+  color: #333;
+  position: relative;
+  text-decoration: none;
+}
+
+@-webkit-keyframes moveFromBottom {
+  from {
+    -webkit-transform: translateY(200%) scale(0.5);
+    opacity: 0;
+  }
+  to {
+    -webkit-transform: translateY(0%) scale(1);
+    opacity: 1;
+  }
+}
+@-moz-keyframes moveFromBottom {
+  from {
+    -moz-transform: translateY(200%) scale(0.5);
+    opacity: 0;
+  }
+  to {
+    -moz-transform: translateY(0%) scale(1);
+    opacity: 1;
+  }
+}
+@-ms-keyframes moveFromBottom {
+  from {
+    -ms-transform: translateY(200%) scale(0.5);
+    opacity: 0;
+  }
+  to {
+    -ms-transform: translateY(0%) scale(1);
+    opacity: 1;
+  }
+}
+
+
+section {
+  display: block;
+  margin: 3rem auto;
+  width: 100%;
+	margin-top: 10%;
+  text-align: center;
+}
+section hr {
+  margin-top: 2rem;
+  width: 40%;
+}
+
+
+
+.colors div[class^='bg'],
+.colors div[class*=' bg'] {
+  float: left;
+  height: 200px;
+  position: relative;
+  width: 100%;
+}
+@media (min-width: 800px) {
+  .colors div[class^='bg'],
+  .colors div[class*=' bg'] {
+    width: 33.33%;
+  }
+}
+@media (min-width: 1000px) {
+  .colors div[class^='bg'],
+  .colors div[class*=' bg'] {
+    width: 11.11%;
+  }
+}
+.colors div[class^='bg']:before, .colors div[class^='bg']:after,
+.colors div[class*=' bg']:before,
+.colors div[class*=' bg']:after {
+  background: rgba(0, 0, 0, 0.4);
+  display: block;
+  line-height: 1.75;
+  position: absolute;
+  width: 100%;
+}
+.colors div[class^='bg']:before,
+.colors div[class*=' bg']:before {
+  bottom: 28px;
+}
+.colors div[class^='bg']:after,
+.colors div[class*=' bg']:after {
+  bottom: 0;
+}
+
+
+.container{
+	color: black;
+
+}
+.node{
+    transform:translate(597.4706592545806,1225.30098268603828);
+}
+	</style>
 
 </head>
 <body>
-   <div>
-    <h1>Main Telecom 7 p's</h1>
-    <br>
-    <div class='vertical-align'>
-    <div class='btns'>
-      <label>
-        <input checked='' name='button-group' type='checkbox' value='item'>
-          <span class='btn first'>Product</span>
-        </input>
-      </label>
-      <label>
-        <input name='button-group' type='checkbox' value='other-item'>
-          <span class='btn'>Price</span>
-        </input>
-      </label>
-      <label>
-        <input name='button-group' type='checkbox' value='other-item'>
-          <span class='btn'>People</span>
-        </input>
-      </label>
-      <label>
-        <input name='button-group' type='checkbox' value='third'>
-          <span class='btn'>Promotion</span>
-        </input>
-      </label>
-      <label>
-        <input name='button-group' type='checkbox' value='third'>
-          <span class='btn last'>Place</span>
-        </input>
-      </label>
+	 <h1>Main Telecom 7 P's</h1>
+	<div>
 
-    </div>
-  </div>
- <div class="mommy">
-  <div class="daddy">
-   <!-- <button class ="1">1</button>
-    <button class ="2">2</button>
-    <button class ="3">3</button>
-    <button class ="4">4</button>
-    <button class ="5">5</button>
-    <button class ="6">6</button>
-    <button class ="7">7</button>
-    <button class ="8">8</button>
-    <button class ="9">9</button>
-    <button class ="10">10</button>
-    <button class ="11">11</button>
-    <button class ="12">12</button>
-    <button class ="13">13</button>
-    <button class ="14">14</button>
-    <button class ="15">15</button>
-    <button class ="16">16</button>
-    <button class ="17">17</button>
-    <button class ="18">18</button>
-    <button class ="19">19</button>
-    <button class ="20">20 </button>
-    <button class ="21">21 </button>
-    <button class ="22">22 </button>
-    <button class ="23">23 </button>
-    <button class ="24">24 </button>
-    <button class ="25">25 </button>
-    <button class ="26">26 </button>
-    <button class ="27">27 </button>
-    <button class ="28">28 </button>
-    <button class ="29">29 </button>
-    <button class ="30">30 </button>
-    <button class ="31">31 </button>
-    <button class ="32">32 </button>
-    <button class ="33">33 </button>
-    <button class ="34">34 </button>
-    <button class ="35">35</button>
-    <button class ="36">36 </button>
-    <button class ="37">37 </button>
-    <button class ="38">38 </button>
-    <button class ="39">39 </button>
-    <button class ="40">40 </button>
-    <button class ="41">41</button>
-    <button class ="42">42 </button>
-    <button class ="43">43</button>
-    <button class ="44">44 </button>
-    <button class ="45">45</button>
-    <button class ="46">46 </button>
-    <button class ="47">47</button>
-    <button class ="48">48 </button>
-    <button class ="49">49</button>
-    <button class ="50">50 </button>
-    <button class ="51">51</button>
-    <button class ="52">52 </button>
-    <button class ="53">53</button>
-    <button class ="54">54 </button>
-    <button class ="55">55</button>
-    <button class ="56">56 </button>
-    <button class ="57">57</button>
-    <button class ="58">58 </button>
-    <button class ="59">59</button>
-    <button class ="60">60 </button>
-    <button class ="61">61</button>
-    <button class ="62">62 </button>
-    <button class ="63">63</button>
-    <button class ="64">64 </button>
-    <button class ="65">65</button>
-    <button class ="66">66 </button>
-    <button class ="67">67</button>
-    <button class ="68">68 </button>
-    <button class ="69">69</button>
-    <button class ="70">70 </button>
-    <button class ="71">71</button>
-    <button class ="72">72 </button>
-    <button class ="73">73</button>
-    <button class ="74">74 </button>
-    <button class ="75">75</button>
-    <button class ="76">76 </button>
-    <button class ="77">77</button>
-    <button class ="78">78 </button>
-    <button class ="79">79</button>
-    <button class ="80">80 </button>
-    <button class ="81">81</button>
-    <button class ="82">82 </button>
-    <button class ="83">83</button>
-    <button class ="84">84 </button>
-    <button class ="85">85</button>
-    <button class ="86">86 </button>
-    <button class ="87">87</button>
-    <button class ="88">88 </button>
-    <button class ="89">89</button>
-    <button class ="90">90 </button>
-    <button class ="91">91</button>
-    <button class ="92">92 </button>
-    <button class ="93">93</button>
-    <button class ="94">94 </button>
-    <button class ="95">95</button>
-    <button class ="96">96 </button>
-    <button class ="97">97</button>
-    <button class ="98">98 </button>
-    <button class ="99">99</button>
-    <button class ="100">100 </button>
-    <button class ="101">101</button>
-    <button class ="102">102 </button>
-    <button class ="103">103</button>
-    <button class ="104">104 </button>
-    <button class ="105">105</button>
-    <button class ="106">106 </button>
-    <button class ="107">107</button>
-    <button class ="108">108 </button>
-    <button class ="109">109</button>
-    <button class ="110">110 </button>
-    <button class ="111">111</button>
-    <button class ="112">112 </button>
-    <button class ="113">113</button>
-    <button class ="114">114 </button>
-    <button class ="115">115</button>
-    <button class ="116">116 </button>
-    <button class ="117">117</button>
-    <button class ="118">118 </button>
-    <button class ="119">119</button> -->
-		<?php
-
-    while($row = mysqli_fetch_array($result))
-        {
-             echo "<button class =1>".$row["productid"]."</button>";
-
-        }
-
-		 ?>
-
-  </div>
+		 <section class="colors">
+				   <ul>
+				     <li class="bg-coral">
+				       <a href="#">
+				         <h3>people</h3>
+				       </a>
+				     </li>
+				     <li class="bg-yellow">
+				       <a href="#">
+				         <h3>prices</h3>
+				       </a>
+				     </li>
+				     <li class="bg-green">
+				       <a href="#">
+				         <h3>product</h3>
+				       </a>
+				     </li>
+				     <li class="bg-pink">
+				       <a href="#">
+				         <h3>places</h3>
+				       </a>
+				     </li>
+						 <li class="bg-pink">
+				       <a href="#">
+				         <h3>process</h3>
+				       </a>
+				     </li>
+						 <li class="bg-pink">
+				       <a href="#">
+				         <h3>promotions</h3>
+				       </a>
+				     </li>
+				   </ul>
+   </section>
 </div>
+			<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js'></script>
+			<script type="text/javascript">
+
+
+
+			function getblueColor() {
+
+				var colors = ["#06d4d4"];
+				return colors[Math.floor(Math.random() * colors.length)];
+			}
+			function getredColor() {
+				var colors = ["#FF0000"];
+				return colors[Math.floor(Math.random() * colors.length)];
+			}
+
+
+			var dataset = {
+				children: [
+					<?php
+
+					while($row = mysqli_fetch_array($result5))
+						{
+								$x=$row['NumberOfTroubles'];
+								 echo "{ name: '" .$row["ProductName"]. "', level: " .$x. ", count: " .$row['quantity']. ", color: ";
+								if ($x>0) {
+									echo "getredColor() },";
+
+								}
+								else {
+									echo "getblueColor() },";
+								}
+
+
+						}
+					 ?>
+				]
+			};
+
+			var diameter = 500;
+			// var color = d3.scaleOrdinal(d3.schemeCategory20);
+
+			var bubble = d3
+				.pack(dataset)
+				.size([diameter, diameter])
+				.padding(10);
+
+			var svg = d3
+				.select("body")
+				.append("svg")
+				.attr("width", diameter)
+				.attr("height", diameter)
+				.attr("class", "bubble");
+
+			var nodes = d3.hierarchy(dataset).sum(function(d) {
+				return d.count;
+			});
+
+			var node = svg
+				.selectAll(".node")
+				.data(bubble(nodes).descendants())
+				.enter()
+				.filter(function(d) {
+					return !d.children;
+				})
+				.append("g")
+				.attr("class", "node")
+				.attr("transform", function(d) {
+					return "translate(" + d.x + "," + d.y + ")";
+				});
+
+			// Adds a tooltip
+			node.append("title").text(function(d) {
+				return d.data.name + " " + d.data.level + ": " + d.data.count;
+			});
+
+			// Add circles of set radius and fill color
+			node
+				.append("circle")
+				.attr("r", function(d) {
+					return d.r;
+				})
+				.style("fill", function(d, i) {
+					// return color(i);
+					return d.data.color;
+				});
+
+			// Top text
+			node
+				.append("text")
+				.attr("dy", "-1.2em")
+				.style("text-anchor", "middle")
+				.text(function(d) {
+					return d.data.name;
+				})
+				.attr("font-family", "sans-serif")
+				.attr("font-size", function(d) {
+					return d.r / 4;
+				})
+				.attr("fill", "white");
+
+			// Middle text
+			node
+				.append("text")
+				.attr("dy", "0.4em")
+				.style("text-anchor", "middle")
+				.text(function(d) {
+					return d.data.level;
+				})
+				.attr("font-family", "Arial", "sans-serif")
+				.attr("font-weight", "bold")
+				.attr("font-size", function(d) {
+					return d.r / 2;
+				})
+				.attr("fill", "white");
+
+			// Bottom text
+			node
+				.append("text")
+				.attr("dy", "2em")
+				.style("text-anchor", "middle")
+				.text(function(d) {
+					return d.data.count;
+				})
+				.attr("font-family", "Arial", "sans-serif")
+				.attr("font-weight", "normal")
+				.attr("font-size", function(d) {
+					return d.r / 4;
+				})
+				.attr("fill", "white");
+		</script>
+
 </body>
 </html>
